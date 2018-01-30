@@ -19,7 +19,7 @@ objects:
     runPolicy: Serial
     source:
       git:
-        uri: "https://github.com/domenicbove/openshift-ssl-server"
+        uri: "https://github.com/eformat/openshift-ssl-server"
         ref: "master"
     strategy:
       sourceStrategy:
@@ -58,7 +58,7 @@ objects:
             - name: keystore_jks
               value: /var/run/secrets/java.io/keystores/keystore.jks
             - name: password
-              value: changeit
+              value: password
           ports:
           - containerPort: 8443
             protocol: TCP
@@ -79,7 +79,7 @@ objects:
             - name: keystore_jks
               value: /var/run/secrets/java.io/keystores/keystore.jks
             - name: password
-              value: changeit
+              value: password
           command: ['/bin/bash']
           args: ['-c', "openssl pkcs12 -export -inkey $keyfile -in $crtfile -out $keystore_pkcs12 -password pass:$password && keytool -importkeystore -noprompt -srckeystore $keystore_pkcs12 -srcstoretype pkcs12 -destkeystore $keystore_jks -storepass $password -srcstorepass $password"]
           volumeMounts:
